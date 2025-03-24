@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_local
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: apinode
+      MYSQL_USER: joao
+      MYSQL_PASSWORD: senha123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - my_network
+
+  api:
+    build: .
+    container_name: node_api
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    networks:
+      - my_network
+    env_file:
+      - .env  
+
+volumes:
+  mysql_data:
+
+networks:
+  my_network:

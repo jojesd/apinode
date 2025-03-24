@@ -1,0 +1,55 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "API de Autenticação",
+      "description": "API para autenticação de usuários com JWT.",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/auth/login": {
+        "post": {
+          "summary": "Login de usuário",
+          "description": "Realiza o login e retorna um token JWT",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "description": "Dados de login",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Login"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Login bem-sucedido",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string",
+                    "description": "Token JWT"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+  
