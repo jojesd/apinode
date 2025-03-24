@@ -1,53 +1,55 @@
 {
     "swagger": "2.0",
     "info": {
-      "title": "API de Autenticação",
-      "description": "API para autenticação de usuários com JWT.",
-      "version": "1.0.0"
+      "title": "Agent API",
+      "version": "1.0.0",
+      "description": "API para gerenciamento de agentes"
     },
     "paths": {
-      "/auth/login": {
+      "/agents": {
         "post": {
-          "summary": "Login de usuário",
-          "description": "Realiza o login e retorna um token JWT",
+          "summary": "Cadastrar um novo agente",
           "parameters": [
             {
-              "name": "body",
               "in": "body",
-              "description": "Dados de login",
+              "name": "agent",
+              "description": "Dados do agente",
               "required": true,
               "schema": {
-                "$ref": "#/definitions/Login"
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "cpf": { "type": "string" },
+                  "age": { "type": "integer" },
+                  "email": { "type": "string" }
+                },
+                "required": ["name", "cpf", "age", "email"]
               }
             }
           ],
           "responses": {
-            "200": {
-              "description": "Login bem-sucedido",
+            "201": {
+              "description": "Agente criado com sucesso",
               "schema": {
-                "type": "object",
-                "properties": {
-                  "token": {
-                    "type": "string",
-                    "description": "Token JWT"
-                  }
-                }
+                "$ref": "#/definitions/Agent"
               }
+            },
+            "400": {
+              "description": "Erro de validação"
             }
           }
         }
       }
     },
     "definitions": {
-      "Login": {
+      "Agent": {
         "type": "object",
         "properties": {
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          }
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "cpf": { "type": "string" },
+          "age": { "type": "integer" },
+          "email": { "type": "string" }
         }
       }
     }
