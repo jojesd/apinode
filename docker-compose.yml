@@ -1,15 +1,14 @@
 version: '3.8'
 
 services:
-  mysql:
+  mysql:  
     image: mysql:8.0
-    container_name: mysql-container
+    container_name: mysql-app-docker
     environment:
       MYSQL_ROOT_PASSWORD: senha123
       MYSQL_DATABASE: apinode
       MYSQL_USER: joao
       MYSQL_PASSWORD: senha123
-      MYSQL_ROOT_HOST: '%'
     ports:
       - "3306:3306" 
     networks:
@@ -21,7 +20,7 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - mysql
+      - mysql 
     environment:
       - DB_HOST=${DB_HOST}
       - DB_USER=${DB_USER}

@@ -27,7 +27,9 @@ const Agent = sequelize.define('Agent', {
   }
 }, {
   timestamps: true,
-  tableName: 'agents'
+  tableName: 'agents',
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',  
 });
 
 module.exports = Agent;
